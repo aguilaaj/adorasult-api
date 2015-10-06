@@ -1,8 +1,13 @@
-var http = require('http');
+var express = require('express');
 var adorasult = require('adorasult');
 
-var port = process.env.PORT || 1337;
-http.createServer(function(req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end(adorasult());
-}).listen(port);
+var app = express();
+app.get('/', function (req, res) {
+  res.json({ insult: adorasult() });
+});
+
+var server = app.listen(3000, function () {
+  var port = server.address().port;
+
+  console.log('Example app listening at http://localhost:%s', port);
+});
